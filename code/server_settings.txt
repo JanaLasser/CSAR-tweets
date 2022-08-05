@@ -1,0 +1,16 @@
+PROJECT_NAME=CSAR
+REPOSITORY_DST=/home/jlasser/CSAR-tweets/
+PYTHON_DST=/usr/local/anaconda3/bin
+PYTHON_LIBRARY_DST=/home/jlasser/.local/lib/python3.8/site-packages/
+TWITTER_API_KEY_DST=/home/jlasser/utilities/twitter_API_keys
+TWITTER_API_KEY_FILENAME=twitter_API_william.txt
+NOTIFICATIONS=True
+EMAIL_CREDENTIALS_DST=/home/jlasser/utilities/email
+EMAIL_CREDENTIALS_FILENAME=email_credentials.txt
+TMP_STORAGE=/data/CSAR-tweets/tmp/
+USERNAME=jlasser
+GROUPNAME=jlasser
+OSF_KEY_DST=/home/jlasser/utilities/OSF
+OSF_KEY_FILENAME=osf_credentials.txt
+DATA_VAULT_DST=/data/CSAR-tweets/
+OSF_PROJECT_ID=yrzeh
