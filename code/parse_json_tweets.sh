@@ -1,7 +1,7 @@
 #!/bin/bash
 
+cd /home/jlasser/CSAR-tweets/code
 source server_settings.txt
-cd $REPOSITORY_DST/code
 
 DAY=$(date +%Y-%m-%d -d  "1 hour ago")
 HOUR=$(date +%H -d  "1 hour ago")
