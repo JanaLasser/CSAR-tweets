@@ -190,6 +190,8 @@ def build_rules_parliamentarians(handles):
             rules.append(curr_rule)
             curr_rule = f"from:{handle}"
             
+    rules.append(curr_rule)
+            
     return rules
 
 
@@ -320,20 +322,21 @@ def check_rules(client, cwd):
                               rule_filename.split(".")[0].replace("_", " ")})
         client.add_stream_rules(rules)
 
-    # there are fewer rules active than expected: find the missing rules
-    # and set them up
+    # there are fewer rules active than expected: delete all active rules and 
+    # set only the expected rules as new rules
     elif len(curr_rule_tags) < len(wanted_rule_tags):
-        missing_rule_tags = wanted_rule_tags.difference(curr_rule_tags)
-        print(f"{len(missing_rule_tags)} rules are missing. Adding missing rules.")
-        missing_rules = []
-        for missing_rule_tag in missing_rule_tags:
-            missing_rule_number = missing_rule_tag.split(" ")[-1]
-            with open(join(cwd, "rules/rule_{}.txt".format(missing_rule_number)), "r") as rule_file:
-                missing_rule = rule_file.read()
-                missing_rules.append({"value":missing_rule, "tag":"CSAR tweets rule " + \
-                                           missing_rule_number})
-
-        client.add_stream_rules(missing_rules)
+        print("Found too few active rules. Resetting all rules")
+        hf.delete_all_rules(client)
+        rule_files = os.listdir(join(cwd, "rules"))
+        rule_files = [f for f in rule_files if "rule" in f]
+        rule_files.sort()
+        rules = []
+        for rule_filename in rule_files:
+            with open(join(cwd, f"rules/{rule_filename}"), "r") as rule_file:
+                rule = rule_file.read()
+                rules.append({"value":rule, "tag":"CSAR tweets " + \
+                              rule_filename.split(".")[0].replace("_", " ")})
+        client.add_stream_rules(rules)
         
     # This should not happen. Ever.
     else:
